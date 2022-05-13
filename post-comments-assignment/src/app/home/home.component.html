@@ -1,0 +1,57 @@
+<div class="container my-3" *ngIf="!loading">
+    <div class="row">
+      <div class="col-12 my-2">
+        <h2 class="text-primary">{{ title }} {{ posts.length}}</h2>
+      </div>
+      <div class="col-12" *ngIf="posts.length &gt; 0;else noPost">
+        <div class="card mb-2" *ngFor="let post of posts;let i = index;">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-6"> {{ post.userId}}</div>
+              <div class="col-6 text-end">No of posts : {{ totalPost[post.userId-1].postCount }}</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="container-fluid">
+              <div class="row">
+                <h5 class="card-title"> {{ post.title }} </h5>
+              </div>
+              <div class="row">
+                <p class="card-text"> {{post.body}} </p>
+              </div>
+              <div class="row justify-content-end mb-2">
+                <div class="col-5 text-end">
+                  <a (click)="addStyle(i)" class="btn btn-primary">View Comments</a>
+                </div>
+              </div>
+  
+              <div class="comments" *ngIf="activeIdx==i && !commentLoading">
+                <div  *ngIf="comments.length &gt; 0; else noComments">
+                  <ng-container class="card-body" *ngFor="let comment of comments;">
+                    <div class="container-fluid bg-light border border-primary" *ngIf="comment.postId == post.id">
+                      <div class="row fw-bold">
+                        <div class="col-6">{{comment.name}} </div>
+                        <div class="col-6 text-end"> {{comment.email}} </div>
+                      </div>
+                      <div class="row mt-2">
+                        <p class="card-text"> {{comment.body}} </p>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+                <ng-template #noComments>No posts available!</ng-template>
+              </div>
+              <div class="comments text-center" *ngIf="activeIdx==i && commentLoading">
+                <app-loader></app-loader>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #noPost>No posts available!</ng-template>
+    </div>
+  </div>
+  <div class="loading" *ngIf="loading">
+    <app-loader></app-loader>
+  </div>
