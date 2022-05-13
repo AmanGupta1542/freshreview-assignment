@@ -16,15 +16,16 @@ export class AppComponent implements OnInit {
   user: number = 0;
   found:boolean = false;
   loading: boolean = false;
+  commentLoading: boolean = false;
   constructor(private postService: PostService) { }
 
   addStyle(i:number){
+    this.getSingleComment(i+1);
     this.activeIdx = this.activeIdx != i ? i : -1;
   }
 
   ngOnInit(): void {
     this.getPosts();
-    this.getComments();
   }
 
   getPosts(){
@@ -56,11 +57,21 @@ export class AppComponent implements OnInit {
     return false;
   }
 
-  getComments(){
-    this.postService.getComments().subscribe(
+  getSingleComment(id:number){
+    this.commentLoading=true;
+    this.postService.getSinglePostComment(id).subscribe(
       res => {
         this.comments = res;
+        this.commentLoading = false;
       }
     )
   }
+
+  // getComments(){
+  //   this.postService.getComments().subscribe(
+  //     res => {
+  //       this.comments = res;
+  //     }
+  //   )
+  // }
 }

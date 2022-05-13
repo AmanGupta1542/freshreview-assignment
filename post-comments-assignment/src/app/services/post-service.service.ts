@@ -17,6 +17,6 @@ export class PostService {
   }
 
   getSinglePostComment(id: number){
-    return this.http.get(this.url +'/'+id +'/comments');
+    return this.http.get(this.url +'posts/'+id +'/comments');
   }
 }
