@@ -9,21 +9,11 @@ import { PostService } from '../services/post-service.service';
 })
 export class HomeComponent implements OnInit {
   title = "Post and it's comments";
-  activeIdx: number = -1;
   posts: any = [];
-  comments: any = [];
-  count : any = '';
   totalPost: any = [];
-  user: number = 0;
-  found:boolean = false;
   loading: boolean = false;
-  commentLoading: boolean = false;
   constructor(private postService: PostService) { }
 
-  addStyle(i:number){
-    this.getSingleComment(i+1);
-    this.activeIdx = this.activeIdx != i ? i : -1;
-  }
 
   ngOnInit(): void {
     this.getPosts();
@@ -58,22 +48,6 @@ export class HomeComponent implements OnInit {
     return false;
   }
 
-  getSingleComment(id:number){
-    this.commentLoading=true;
-    this.postService.getSinglePostComment(id).subscribe(
-      res => {
-        this.comments = res;
-        this.commentLoading = false;
-      }
-    )
-  }
 
-  // getComments(){
-  //   this.postService.getComments().subscribe(
-  //     res => {
-  //       this.comments = res;
-  //     }
-  //   )
-  // }
 
 }

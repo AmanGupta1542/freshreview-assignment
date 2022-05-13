@@ -1,1 +1,39 @@
-<p>posts works!</p>
+<div>
+    <div class="card-header">
+        <div class="row">
+          <div class="col-6"> {{ post.userId}}</div>
+          <div class="col-6 text-end">No of posts : {{ totalPost[post.userId-1].postCount }}</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="container-fluid">
+          <div class="row">
+            <h5 class="card-title"> {{ post.title }} </h5>
+          </div>
+          <div class="row">
+            <p class="card-text"> {{post.body}} </p>
+          </div>
+          <div class="row justify-content-end mb-2">
+            <div class="col-5 text-end">
+              <a (click)="addStyle(i)" class="btn btn-primary">View Comments</a>
+            </div>
+          </div>
+
+          <div class="comments" *ngIf="activeIdx==i && !commentLoading">
+            <div  *ngIf="comments.length &gt; 0; else noComments">
+              <ng-container class="card-body" *ngFor="let comment of comments;">
+
+                <app-comments [comment]=comment [postId]=post.id></app-comments>
+                
+              </ng-container>
+              
+            </div>
+            <ng-template #noComments>No posts available!</ng-template>
+          </div>
+          <div class="comments text-center" *ngIf="activeIdx==i && commentLoading">
+            <app-loader></app-loader>
+          </div>
+
+        </div>
+      </div>
+  </div>

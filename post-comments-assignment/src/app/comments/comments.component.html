@@ -1,1 +1,9 @@
-<p>comments works!</p>
+<div class="container-fluid bg-light border-bottom" *ngIf="comment.postId == postId">
+    <div class="row fw-bold">
+      <div class="col-6">{{comment.name}} </div>
+      <div class="col-6 text-end"> {{comment.email}} </div>
+    </div>
+    <div class="row mt-2">
+      <p class="card-text"> {{comment.body}} </p>
+    </div>
+</div>
