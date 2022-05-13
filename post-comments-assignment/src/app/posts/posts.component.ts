@@ -30,6 +30,10 @@ export class PostsComponent implements OnInit {
       res => {
         this.comments = res;
         this.commentLoading = false;
+      },
+      error => {
+        console.log(error);
+        this.commentLoading = false;
       }
     )
   }
